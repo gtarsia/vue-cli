@@ -2,6 +2,7 @@ const defaults = {
   clean: true,
   target: 'app',
   formats: 'commonjs,umd,umd-min',
+  'externalize-vue': true,
   'unsafe-inline': true
 }
 
@@ -26,6 +27,7 @@ module.exports = (api, options) => {
     options: {
       '--mode': `specify env mode (default: production)`,
       '--dest': `specify output directory (default: ${options.outputDir})`,
+      '--externalize-vue': `externalizes vue in lib mode (default: ${defaults['externalize-vue']})`,
       '--modern': `build app targeting modern browsers with auto fallback`,
       '--no-unsafe-inline': `build app without introducing inline scripts`,
       '--target': `app | lib | wc | wc-async (default: ${defaults.target})`,

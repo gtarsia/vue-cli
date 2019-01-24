@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-module.exports = (api, { entry, name, formats }, options) => {
+module.exports = (api, { entry, name, formats, externalize }, options) => {
   const { log, error } = require('@vue/cli-shared-utils')
   const abort = msg => {
     log()
@@ -44,15 +44,17 @@ module.exports = (api, { entry, name, formats }, options) => {
     }
 
     // externalize Vue in case user imports it
-    config
-      .externals({
-        ...config.get('externals'),
-        vue: {
-          commonjs: 'vue',
-          commonjs2: 'vue',
-          root: 'Vue'
-        }
-      })
+    if (externalize) {
+      config
+        .externals({
+          ...config.get('externals'),
+          vue: {
+            commonjs: 'vue',
+            commonjs2: 'vue',
+            root: 'Vue'
+          }
+        })
+    }
 
     // inject demo page for umd
     if (genHTML) {
